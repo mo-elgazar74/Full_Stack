@@ -42,9 +42,17 @@
           "codeCoverage": true
         }
       }
+    },
+    "@nx/js:tsc": {
+      "cache": true,
+      "dependsOn": ["^build"],
+      "inputs": ["production", "^production"]
     }
   },
   "plugins": [
+    {
+      "plugin": "@nx/node"
+    },
     {
       "plugin": "@nx/playwright/plugin",
       "options": {
@@ -56,6 +64,20 @@
       "options": {
         "targetName": "lint"
       }
+    },
+    {
+      "plugin": "@nx/webpack/plugin",
+      "options": {
+        "buildTargetName": "build",
+        "serveTargetName": "serve",
+        "previewTargetName": "preview",
+        "buildDepsTargetName": "build-deps",
+        "watchDepsTargetName": "watch-deps",
+        "serveStaticTargetName": "serve-static"
+      }
+    },
+    {
+      "plugin": "@nx/nest"
     }
   ],
   "generators": {
@@ -65,5 +87,9 @@
       "style": "css",
       "unitTestRunner": "jest"
     }
+  },
+  "workspaceLayout": {
+    "appsDir": "apps",
+    "libsDir": "libs"
   }
 }

@@ -1,2 +1,18 @@
 autoInstallPeers: true
+
+ignoredBuiltDependencies:
+  - '@nestjs/core'
+
+onlyBuiltDependencies:
+  - '@parcel/watcher'
+  - '@swc/core'
+  - bufferutil
+  - esbuild
+  - lmdb
+  - msgpackr-extract
+  - nx
+  - protobufjs
+  - unrs-resolver
+  - utf-8-validate
+
 strictPeerDependencies: false
