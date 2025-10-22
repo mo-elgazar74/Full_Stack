@@ -13,16 +13,21 @@ try {
   simpleImportSortPlugin = null;
 }
 
-const tsFileRules = {
+const rules = {
+  // Core rules
+  eqeqeq: ['error', 'always'],
   'no-console': ['warn', { allow: ['warn', 'error'] }],
   'no-debugger': 'error',
   'no-empty-function': 'warn',
-  '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+  'prefer-const': 'error',
+
+  // TypeScript rules
   '@typescript-eslint/no-explicit-any': 'warn',
   '@typescript-eslint/consistent-type-imports': 'error',
   '@typescript-eslint/prefer-for-of': 'error',
-  'prefer-const': 'error',
-  eqeqeq: ['error', 'always'],
+  '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+
+  // Enforce public API imports only
   'no-restricted-imports': [
     'error',
     {
@@ -34,6 +39,8 @@ const tsFileRules = {
       ],
     },
   ],
+
+  // Nx module boundaries
   '@nx/enforce-module-boundaries': [
     'error',
     {
@@ -51,27 +58,21 @@ const tsFileRules = {
 };
 
 if (simpleImportSortPlugin) {
-  tsFileRules['simple-import-sort/imports'] = 'error';
-  tsFileRules['simple-import-sort/exports'] = 'error';
+  rules['simple-import-sort/imports'] = 'error';
+  rules['simple-import-sort/exports'] = 'error';
 }
 
-const baseConfig = [
+export default [
   js.configs.recommended,
   ...tseslint.configs.recommended,
   ...nx.configs['flat/base'],
   prettier,
   {
-    ignores: ['**/dist/**', '**/node_modules/**'],
+    ignores: ['**/dist/**', '**/node_modules/**', '.nx/**', 'apps/backend/webpack.config.js'],
   },
   {
-    files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
-    ...(simpleImportSortPlugin
-      ? { plugins: { 'simple-import-sort': simpleImportSortPlugin } }
-      : {}),
-    rules: {
-      ...tsFileRules,
-    },
+    files: ['**/*.{ts,tsx,cts,mts,js,jsx,cjs,mjs}'],
+    ...(simpleImportSortPlugin ? { plugins: { 'simple-import-sort': simpleImportSortPlugin } } : {}),
+    rules,
   },
 ];
-
-export default baseConfig;

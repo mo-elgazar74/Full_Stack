@@ -1,3 +1,16 @@
+/* eslint-env node */
+const path = require('path');
+const webpack = require('webpack');
+
+module.exports = {
+  entry: './src/main.ts',
+  target: 'node',
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'main.js',
+  },
+};
+
 const { NxAppWebpackPlugin } = require('@nx/webpack/app-plugin');
 const { join } = require('path');
 
