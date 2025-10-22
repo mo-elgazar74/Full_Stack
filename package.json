@@ -2,14 +2,7 @@
   "name": "@angular-project/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {
-    "lint": "eslint .",
-    "lint:backend": "eslint apps/backend/src --format stylish || echo \"✔ No problems found\"",
-    "serve:frontend": "nx serve Angular-Project",
-    "serve:backend": "nx serve backend --no-daemon",
-    "serve:e2e": "nx run Angular-Project:serve-static --port=3333",
-    "dev": "concurrently -n FE,BE,E2E -c green,blue,magenta \"nx serve Angular-Project\" \"nx serve backend\" \"nx run Angular-Project:serve-static --port=3333\""
-  },
+  "scripts": {},
   "private": true,
   "dependencies": {
     "@angular/common": "~20.3.0",

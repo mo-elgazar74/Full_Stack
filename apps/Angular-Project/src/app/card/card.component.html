@@ -1,1 +1,13 @@
-<p>card works!</p>
+<h1>Add Card</h1>
+<form #cardForm="ngForm" (ngSubmit)="addCard(cardForm)">
+  <input name="title" ngModel placeholder="Title" required />
+  <input name="description" ngModel placeholder="Description" />
+  <button type="submit">Add</button>
+</form>
+
+<hr />
+
+<h2>Cards</h2>
+<div *ngFor="let card of cards">
+  <p><b>{{ card.title }}</b> - {{ card.description }}</p>
+</div>

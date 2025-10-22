@@ -14,5 +14,9 @@ onlyBuiltDependencies:
   - protobufjs
   - unrs-resolver
   - utf-8-validate
+  
+packages:
+  - 'apps/*'
+  - 'libs/*'
 
 strictPeerDependencies: false

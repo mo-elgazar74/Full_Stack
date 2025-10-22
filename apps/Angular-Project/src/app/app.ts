@@ -1,17 +1,17 @@
-import { ChangeDetectionStrategy,Component } from '@angular/core';
-import { RouterOutlet,RouterModule } from '@angular/router';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { RouterOutlet, RouterLink } from '@angular/router';
 import { NxWelcome } from './nx-welcome';
-import { CardComponent } from "./card/card.component";
-import { AboutComponent } from "./about/about.component";
+import { CardComponent } from './card/card.component';
+import { AboutComponent } from './about/about.component';
 
 @Component({
-  imports: [NxWelcome, RouterModule, CardComponent, RouterOutlet, AboutComponent],
+  standalone: true,
+  imports: [NxWelcome, RouterOutlet, RouterLink, CardComponent, AboutComponent],
   selector: 'app-root',
   templateUrl: './app.html',
-  styleUrl: './app.css',
+  styleUrls: ['./app.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-
-export class AppComponent{
+export class AppComponent {
   protected title = 'Angular-Project';
 }
