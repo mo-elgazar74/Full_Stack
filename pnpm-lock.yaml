@@ -187,7 +187,7 @@ importers:
         specifier: ^8.2.2
         version: 8.2.2
       eslint:
-        specifier: ^9.0.0
+        specifier: ^9.8.0
         version: 9.38.0(jiti@2.6.1)
       eslint-config-prettier:
         specifier: ^10.0.0
