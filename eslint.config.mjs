@@ -68,7 +68,14 @@ export default [
   ...nx.configs['flat/base'],
   prettier,
   {
-    ignores: ['**/dist/**', '**/node_modules/**', '.nx/**', 'apps/backend/webpack.config.js'],
+    ignores: [
+      '**/dist/**',
+      '**/node_modules/**',
+      '.nx/**',
+      'apps/backend/webpack.config.js',
+      '**/eslint.config.mjs',
+      '**/eslint.config.js',
+    ],
   },
   {
     files: ['**/*.{ts,tsx,cts,mts,js,jsx,cjs,mjs}'],

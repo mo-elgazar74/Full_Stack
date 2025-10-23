@@ -72,6 +72,12 @@
     },
     {
       "plugin": "@nx/nest"
+    },
+    {
+      "plugin": "@nx/eslint/plugin",
+      "options": {
+        "targetName": "eslint:lint"
+      }
     }
   ],
   "generators": {

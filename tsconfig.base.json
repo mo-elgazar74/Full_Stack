@@ -15,7 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@angular-project/libs": ["libs/src/index.ts"]
+      "@angular-project/Linting": ["Linting/src/index.ts"],
+      "@angular-project/libs": ["libs/src/index.ts"],
+      "@angular-project/lint-test": ["libs/lint-test/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
