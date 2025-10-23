@@ -18,6 +18,8 @@ import { CardService, type CardDto } from './card-service';
 })
 export class CardComponent implements OnInit {
   cards: CardDto[] = [];
+  editingId: number | null = null;
+  editDraft: Partial<CardDto> = {};
   private readonly cardService = inject(CardService);
   private readonly cdr = inject(ChangeDetectorRef);
 
@@ -53,6 +55,38 @@ export class CardComponent implements OnInit {
         this.cards = [];
         this.cdr.markForCheck();
       },
+    });
+  }
+
+  startEdit(card: CardDto) {
+    this.editingId = card.id ?? null;
+    this.editDraft = { title: card.title, description: card.description };
+    this.cdr.markForCheck();
+  }
+
+  cancelEdit() {
+    this.editingId = null;
+    this.editDraft = {};
+    this.cdr.markForCheck();
+  }
+
+  saveEdit() {
+    if (this.editingId == null) return;
+    this.cardService.updateCard(this.editingId, this.editDraft).subscribe({
+      next: () => {
+        this.editingId = null;
+        this.editDraft = {};
+        this.loadCards();
+      },
+      error: (error) => console.error('Unable to update card', error),
+    });
+  }
+
+  deleteCard(id?: number) {
+    if (id == null) return;
+    this.cardService.deleteCard(id).subscribe({
+      next: () => this.loadCards(),
+      error: (error) => console.error('Unable to delete card', error),
     });
   }
 }

@@ -9,5 +9,19 @@
 
 <h2>Cards</h2>
 <div *ngFor="let card of cards">
-  <p><b>{{ card.title }}</b> - {{ card.description }}</p>
+  <ng-container *ngIf="editingId !== card.id; else editTpl">
+    <p>
+      <b>{{ card.title }}</b> - {{ card.description }}
+      <button type="button" (click)="startEdit(card)">Edit</button>
+      <button type="button" (click)="deleteCard(card.id)">Delete</button>
+    </p>
+  </ng-container>
+  <ng-template #editTpl>
+    <p>
+      <input [(ngModel)]="editDraft.title" placeholder="Title" />
+      <input [(ngModel)]="editDraft.description" placeholder="Description" />
+      <button type="button" (click)="saveEdit()">Save</button>
+      <button type="button" (click)="cancelEdit()">Cancel</button>
+    </p>
+  </ng-template>
 </div>

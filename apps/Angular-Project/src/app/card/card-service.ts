@@ -22,4 +22,12 @@ export class CardService {
   addCard(card: CardDto): Observable<CardDto> {
     return this.http.post<CardDto>(this.apiUrl, card);
   }
+
+  deleteCard(id: number): Observable<CardDto> {
+    return this.http.delete<CardDto>(`${this.apiUrl}/${id}`);
+  }
+
+  updateCard(id: number, card: Partial<CardDto>): Observable<CardDto> {
+    return this.http.patch<CardDto>(`${this.apiUrl}/${id}`, card);
+  }
 }
