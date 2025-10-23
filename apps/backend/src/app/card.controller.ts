@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, Patch, Delete, ParseIntPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Patch, Delete, ParseIntPipe, ValidationPipe } from '@nestjs/common';
 import { CardService } from './card.service';
 import { CreateCardDto } from './dto/create-card.dto';
 import { UpdateCardDto } from './dto/update-card.dto';
@@ -8,7 +8,10 @@ export class CardController {
   constructor(private readonly cardService: CardService) {}
 
   @Post()
-  create(@Body() createCardDto: CreateCardDto) {
+  create(
+    @Body(new ValidationPipe({ whitelist: true, transform: true }))
+    createCardDto: CreateCardDto,
+  ) {
     return this.cardService.create(createCardDto);
   }
 
@@ -25,7 +28,8 @@ export class CardController {
   @Patch(':id')
   update(
     @Param('id', ParseIntPipe) id: number,
-    @Body() updateCardDto: UpdateCardDto,
+    @Body(new ValidationPipe({ whitelist: true, transform: true }))
+    updateCardDto: UpdateCardDto,
   ) {
     return this.cardService.update(id, updateCardDto);
   }

@@ -1,35 +1,25 @@
 import pluginNest from 'eslint-plugin-nestjs';
+import tseslint from 'typescript-eslint';
 
 export default [
   {
-    plugins: { nestjs: pluginNest },
-    ...pluginNest.configs.recommended,
+    files: ['apps/backend/**/*.{ts,js}'],
+    plugins: { nestjs: pluginNest, '@typescript-eslint': tseslint.plugin },
+    languageOptions: {
+      parser: tseslint.parser,
+    },
+    // Start from the plugin's recommended rules
+    ...(pluginNest.configs?.recommended ?? {}),
     rules: {
+      // keep any defaults, then strengthen a few
+      ...(pluginNest.configs?.recommended?.rules ?? {}),
       'nestjs/use-validation-pipe': 'error',
-      'nestjs/use-class-validator': 'error',
-      'nestjs/no-lifecycle-method-param-type': 'error',
-      'nestjs/no-misused-promises': 'error',
-      'nestjs/no-misused-scopes': 'error',
-      'nestjs/no-exported-injectable': 'warn',
-      'nestjs/no-metatype': 'warn',
-      'nestjs/use-injectable': 'error',
-      'nestjs/use-method-decorator': 'warn',
-      'nestjs/use-guards': 'warn',
-      'nestjs/use-interceptors': 'warn',
-      'nestjs/use-pipes': 'warn',
-      'nestjs/use-filters': 'warn',
-      'nestjs/use-exception-filter': 'warn',
-      'nestjs/use-module': 'warn',
-      'nestjs/no-extraneous-dependencies': 'warn',
-      'nestjs/no-invalid-decorator': 'error',
-      'nestjs/no-missing-decorator': 'error',
-      'nestjs/no-async-method-without-await': 'warn',
-      'nestjs/no-async-callback': 'warn',
-      'nestjs/no-invalid-parameter-decorator': 'error',
-      'nestjs/no-injectable-on-constructor': 'error',
-      'nestjs/use-provider-inject': 'warn',
-      'nestjs/no-unused-dependency': 'warn',
-      'nestjs/no-misused-dependency-injection': 'warn',
+      'nestjs/use-dependency-injection': 'warn',
+      'nestjs/parse-int-pipe': 'warn',
+      'nestjs/deprecated-api-modules': 'warn',
+      // Add some TS rules to surface warnings in backend
+      '@typescript-eslint/explicit-function-return-type': 'warn',
+      '@typescript-eslint/explicit-module-boundary-types': 'warn',
     },
   },
 ];
