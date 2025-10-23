@@ -88,5 +88,12 @@
   "workspaceLayout": {
     "appsDir": "apps",
     "libsDir": "libs"
+  },
+  "projects": {
+    "Angular-Project": "apps/Angular-Project",
+    "Angular-Project-e2e": "apps/Angular-Project-e2e",
+    "backend": "apps/backend",
+    "backend-e2e": "apps/backend-e2e",
+    "libs": "libs"
   }
 }

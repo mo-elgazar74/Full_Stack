@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import type { Observable } from 'rxjs';
 
 export interface CardDto {
+  id?: number;
   title: string;
   description?: string;
 }

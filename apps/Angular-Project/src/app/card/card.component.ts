@@ -1,5 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, type OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  inject,
+  type OnInit,
+} from '@angular/core';
 import { FormsModule, type NgForm } from '@angular/forms';
 import { CardService, type CardDto } from './card-service';
 
@@ -13,6 +19,7 @@ import { CardService, type CardDto } from './card-service';
 export class CardComponent implements OnInit {
   cards: CardDto[] = [];
   private readonly cardService = inject(CardService);
+  private readonly cdr = inject(ChangeDetectorRef);
 
   ngOnInit() {
     this.loadCards();
@@ -24,13 +31,28 @@ export class CardComponent implements OnInit {
     }
 
     const formValue = form.value as CardDto;
-    this.cardService.addCard(formValue).subscribe(() => {
-      form.resetForm();
-      this.loadCards();
+    this.cardService.addCard(formValue).subscribe({
+      next: () => {
+        form.resetForm();
+        this.loadCards();
+      },
+      error: (error) => {
+        console.error('Unable to create card', error);
+      },
     });
   }
 
   loadCards() {
-    this.cardService.getCards().subscribe((data) => (this.cards = data));
+    this.cardService.getCards().subscribe({
+      next: (data) => {
+        this.cards = data;
+        this.cdr.markForCheck();
+      },
+      error: (error) => {
+        console.error('Unable to fetch cards', error);
+        this.cards = [];
+        this.cdr.markForCheck();
+      },
+    });
   }
 }
